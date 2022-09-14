@@ -1,10 +1,15 @@
 # Welcome Bot - Next Generation Sample App
 
-This sample app is a Welcome Bot that helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
+This sample app is a Welcome Bot that helps create, store and send friendly
+welcome messages when a user joins a channel. If you are new to next generation
+apps then you've come to the right place!
 
-Welcome Bot helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
+Welcome Bot helps create, store and send friendly welcome messages when a user
+joins a channel. If you are new to next generation apps then you've come to the
+right place!
 
 **Guide Outline**:
+
 - [Supported Workflows](#supported-workflows)
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
@@ -19,28 +24,39 @@ Welcome Bot helps create, store and send friendly welcome messages when a user j
 - [Resources](#resources)
 
 ---
+
 ## Supported Workflows
 
-- **Welcome Message Setup**: Create and store a welcome message for a specified channel.
-- **Send Welcome Message**: Retrieve stored message and send it when a new user joins the channel.
+- **Welcome Message Setup**: Create and store a welcome message for a specified
+  channel.
+- **Send Welcome Message**: Retrieve stored message and send it when a new user
+  joins the channel.
 
 ## Understanding Welcome Bot
 
-When working with this app it helps to think about it as two separate flows. 
+When working with this app it helps to think about it as two separate flows.
 
 ### Creating and storing messages
+
 - A link trigger starts the `MessageSetupWorkflow`workflow.
-- The `MessageSetupWorkflow` workflow has three steps, steps are the action components of a workflow. 
-    1. The `OpenForm` built-in function that opens a form.
-    2. The `SendEphemeralMessage` built-in function that sends a confirmation message.
-    3. Passes data to the `WelcomeMessageSetupFunction` custom function.
-- When the form is submitted, the `WelcomeMessageSetupFunction` function saves the message to the datastore and creates an event trigger to listen in on `user_joined_channel` events in the specified channel.
+- The `MessageSetupWorkflow` workflow has three steps, steps are the action
+  components of a workflow.
+  1. The `OpenForm` built-in function that opens a form.
+  2. The `SendEphemeralMessage` built-in function that sends a confirmation
+     message.
+  3. Passes data to the `WelcomeMessageSetupFunction` custom function.
+- When the form is submitted, the `WelcomeMessageSetupFunction` function saves
+  the message to the datastore and creates an event trigger to listen in on
+  `user_joined_channel` events in the specified channel.
 
 ### Sending messages
-- The `user_joined_channel` event trigger starts the `SendWelcomeMessageWorkflow` workflow.
+
+- The `user_joined_channel` event trigger starts the
+  `SendWelcomeMessageWorkflow` workflow.
 - The `SendWelcomeMessageWorkflow` workflow has one additional step:
-    1. Pass data to the `SendWelcomeMessageFunction` custom function.
-- The `SendWelcomeMessageFunction` function retrieves the saved message and sends it to the selected channel.
+  1. Pass data to the `SendWelcomeMessageFunction` custom function.
+- The `SendWelcomeMessageFunction` function retrieves the saved message and
+  sends it to the selected channel.
 
 ## Setup
 
@@ -118,7 +134,7 @@ Once running, click the
 
 To stop running locally, press `<CTRL> + C` to end the process.
 
- ## Testing
+## Testing
 
 Test filenames should be suffixed with `_test`. Run all tests with `deno test`:
 

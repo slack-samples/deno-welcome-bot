@@ -38,7 +38,6 @@ const setupFunction: SlackFunctionHandler<
     expression_values: { ":mychannel": inputs.channel },
   });
 
-
   for (const item of result["items"]) {
     const response = await client.chat.postEphemeral({
       channel: item["channel"],

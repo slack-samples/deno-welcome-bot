@@ -36,7 +36,6 @@ const setupFunction: SlackFunctionHandler<
 > = async (
   { inputs, token },
 ) => {
-
   const client = SlackAPI(token, {});
 
   const uuid = crypto.randomUUID();
@@ -59,7 +58,6 @@ const setupFunction: SlackFunctionHandler<
       outputs: {},
     };
   } else {
-
     // FLOW #2
     // Creating event trigger for Workflow #2
     const triggerResponse = await client.workflows.triggers.create({
