@@ -1,13 +1,16 @@
-# Deno Starter Template
+# Welcome Bot - Next Generation Sample App
 
-This is a scaffolded Deno template used to build out Slack apps using the Slack
-CLI.
+This sample app is a Welcome Bot that helps create, store and send friendly
+welcome messages when a user joins a channel. If you are new to next generation
+apps then you've come to the right place!
 
 **Guide Outline**:
 
+- [Supported Workflows](#supported-workflows)
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
-  - [Clone the Template](#clone-the-template)
+  - [Clone the Sample App](#clone-the-sample-app)
+- [Understanding Welcome Bot](#understanding-welcome-bot)
 - [Create a Link Trigger](#create-a-link-trigger)
 - [Running Your Project Locally](#running-your-project-locally)
 - [Testing](#testing)
@@ -18,6 +21,39 @@ CLI.
 
 ---
 
+## Supported Workflows
+
+- **Welcome Message Setup**: Create and store a welcome message for a specified
+  channel.
+- **Send Welcome Message**: Retrieve stored message and send it when a new user
+  joins the channel.
+
+## Understanding Welcome Bot
+
+When working with this app it helps to think about it as two separate flows.
+
+### Creating and storing messages
+
+- A link trigger starts the `MessageSetupWorkflow`workflow.
+- The `MessageSetupWorkflow` workflow has three steps, steps are the action
+  components of a workflow.
+  1. The `OpenForm` built-in function that opens a form.
+  2. The `SendEphemeralMessage` built-in function that sends a confirmation
+     message.
+  3. Passes data to the `WelcomeMessageSetupFunction` custom function.
+- When the form is submitted, the `WelcomeMessageSetupFunction` function saves
+  the message to the datastore and creates an event trigger to listen in on
+  `user_joined_channel` events in the specified channel.
+
+### Sending messages
+
+- The `user_joined_channel` event trigger starts the
+  `SendWelcomeMessageWorkflow` workflow.
+- The `SendWelcomeMessageWorkflow` workflow has one additional step:
+  1. Pass data to the `SendWelcomeMessageFunction` custom function.
+- The `SendWelcomeMessageFunction` function retrieves the saved message and
+  sends it to the selected channel.
+
 ## Setup
 
 Before getting started, make sure you have a development workspace where you
@@ -26,20 +62,20 @@ have permissions to install apps. If you don’t have one set up, go ahead and
 
 ### Install the Slack CLI
 
-To use this template, you first need to install and configure the Slack CLI.
+To use this sample, you first need to install and configure the Slack CLI.
 Step-by-step instructions can be found in our
 [Quickstart Guide](https://api.slack.com/future/quickstart).
 
-### Clone the Template
+### Clone the Sample App
 
 Start by cloning this repository:
 
 ```zsh
 # Clone this project onto your machine
-$ slack create my-app -t slack-samples/deno-starter-template
+$ slack create my-welcome-bot -t slack-samples/deno-welcome-bot
 
 # Change into this project directory
-$ cd my-app
+$ cd my-welcome-bot
 ```
 
 ## Create a Link Trigger
@@ -60,11 +96,11 @@ that Shortcut URLs will be different across each workspace, as well as between
 the Workspace that you'd like to create the Trigger in. Each Workspace has a
 development version (denoted by `(dev)`), as well as a deployed version.
 
-To create a Link Trigger for the Workflow in this template, run the following
+To create a Link Trigger for the "Message Setup" Workflow, run the following
 command:
 
 ```zsh
-$ slack trigger create --trigger-def triggers/sample_trigger.ts
+$ slack trigger create --trigger-def triggers/welcome_message_trigger.ts
 ```
 
 After selecting a Workspace, the output provided will include the Link Trigger
@@ -90,17 +126,13 @@ Connected, awaiting events
 
 Once running, click the
 [previously created Shortcut URL](#create-a-link-trigger) associated with the
-`(dev)` version of your app. This should start the included sample Workflow.
+`(dev)` version of your app. This should start the Message Setup Workflow.
 
 To stop running locally, press `<CTRL> + C` to end the process.
 
 ## Testing
 
-For an example of how to test a function, see
-`functions/sample_function_test.ts`. Test filenames should be suffixed with
-`_test`.
-
-Run all tests with `deno test`:
+Test filenames should be suffixed with `_test`. Run all tests with `deno test`:
 
 ```zsh
 $ deno test

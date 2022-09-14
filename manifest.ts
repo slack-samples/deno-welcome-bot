@@ -1,16 +1,22 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import SampleWorkflow from "./workflows/sample_workflow.ts";
+import { MessageSetupDatastore } from "./datastores/welcome_message_db.ts";
+import { MessageSetupWorkflow } from "./workflows/message_setup_workflow.ts";
+import { SendWelcomeMessageWorkflow } from "./workflows/send_welcome_message_workflow.ts";
 
-/**
- * The app manifest contains the app's configuration. This
- * file defines attributes like app name and description.
- * https://api.slack.com/future/manifest
- */
 export default Manifest({
-  name: "deno-starter-template",
-  description: "A template for building Slack apps with Deno",
+  name: "Welcome Message Bot",
+  description:
+    "Quick and easy way to setup automated welcome messages for channels in your workspace.",
   icon: "assets/icon.png",
-  workflows: [SampleWorkflow],
+  workflows: [MessageSetupWorkflow, SendWelcomeMessageWorkflow],
   outgoingDomains: [],
-  botScopes: ["commands", "chat:write", "chat:write.public"],
+  datastores: [MessageSetupDatastore],
+  botScopes: [
+    "chat:write",
+    "chat:write.public",
+    "datastore:read",
+    "datastore:write",
+    "channels:read",
+    "triggers:write",
+  ],
 });
