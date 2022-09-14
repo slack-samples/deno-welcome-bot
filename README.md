@@ -3,7 +3,7 @@
 This sample app is a Welcome Bot that helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
 
 Welcome Bot helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
-
+**Guide Outline**:
 - [Supported Workflows](#supported-workflows)
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
