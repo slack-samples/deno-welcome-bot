@@ -113,8 +113,7 @@ Connected, awaiting events
 
 Once running, click the
 [previously created Shortcut URL](#create-a-link-trigger) associated with the
-`(dev)` version of your app. This should start a Workflow that opens a form used
-to create a new GitHub issue!
+`(dev)` version of your app. This should start the Message Setup Workflow.
 
 To stop running locally, press `<CTRL> + C` to end the process.
 

@@ -29,8 +29,6 @@ const setupFunction: SlackFunctionHandler<
 > = async (
   { inputs, token },
 ) => {
-  console.log(`channel: ${inputs.channel}`);
-  console.log(`triggered_user: ${inputs.triggered_user}`);
   const client = SlackAPI(token, {});
   // Querying datastore for stored messages
   const result = await client.apps.datastore.query({
@@ -40,7 +38,6 @@ const setupFunction: SlackFunctionHandler<
     expression_values: { ":mychannel": inputs.channel },
   });
 
-  console.log(result);
 
   for (const item of result["items"]) {
     const response = await client.chat.postEphemeral({
@@ -48,7 +45,6 @@ const setupFunction: SlackFunctionHandler<
       text: item["message"],
       user: inputs.triggered_user,
     });
-    console.log(response);
   }
 
   return await {

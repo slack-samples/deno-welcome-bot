@@ -36,9 +36,6 @@ const setupFunction: SlackFunctionHandler<
 > = async (
   { inputs, token },
 ) => {
-  console.log(`channel: ${inputs.channel}`);
-  console.log(`welcome_message: ${inputs.welcome_message}`);
-  console.log(`author: ${inputs.author}`);
 
   const client = SlackAPI(token, {});
 
@@ -57,13 +54,11 @@ const setupFunction: SlackFunctionHandler<
 
   //Error handling
   if (!putResponse.ok) {
-    console.log("Error calling apps.datastore.put:");
     return await {
       error: putResponse.error,
       outputs: {},
     };
   } else {
-    console.log("Datastore put successful!");
 
     // FLOW #2
     // Creating event trigger for Workflow #2
