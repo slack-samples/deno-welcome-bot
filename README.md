@@ -1,7 +1,6 @@
 # Welcome Bot - Next Generation Sample App
 
-This repo contains a sample project and embedded lightweight SDK of a Typescript
-based project for the new Deno runtime.
+This sample app is a Welcome Bot that helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
 
 Welcome Bot helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
 
@@ -12,6 +11,7 @@ Welcome Bot helps create, store and send friendly welcome messages when a user j
 - [Understanding Welcome Bot](#understanding-welcome-bot)
 - [Create a Link Trigger](#create-a-link-trigger)
 - [Running Your Project Locally](#running-your-project-locally)
+- [Testing](#testing)
 - [Deploying Your App](#deploying-your-app)
   - [Viewing Activity Logs](#viewing-activity-logs)
 - [Project Structure](#project-structure)
@@ -116,6 +116,14 @@ Once running, click the
 `(dev)` version of your app. This should start the Message Setup Workflow.
 
 To stop running locally, press `<CTRL> + C` to end the process.
+
+ ## Testing
+
+Test filenames should be suffixed with `_test`. Run all tests with `deno test`:
+
+```zsh
+$ deno test
+```
 
 ## Deploying Your App
 
