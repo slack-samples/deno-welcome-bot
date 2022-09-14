@@ -39,7 +39,7 @@ const setupFunction: SlackFunctionHandler<
   });
 
   for (const item of result["items"]) {
-    const response = await client.chat.postEphemeral({
+    await client.chat.postEphemeral({
       channel: item["channel"],
       text: item["message"],
       user: inputs.triggered_user,
