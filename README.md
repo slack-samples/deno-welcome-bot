@@ -4,7 +4,7 @@ This repo contains a sample project and embedded lightweight SDK of a Typescript
 based project for the new Deno runtime.
 
 Welcome Bot helps create, store and send friendly welcome messages when a user joins a channel. If you are new to next generation apps then you've come to the right place!
-
+**Guide Outline**:
 - [Supported Workflows](#supported-workflows)
 - [Setup](#setup)
   - [Install the Slack CLI](#install-the-slack-cli)
