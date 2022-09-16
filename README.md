@@ -196,9 +196,9 @@ such as a user pressing a button or when a specific event occurs.
 
 ### `/datastores`
 
-[Datastores](https://api.slack.com/future/datastores) are used to store and
-retrieve data related to your application. Required scopes to use datastores
-include `datastores:write` and `datastores:read`.
+[Datastores](https://api.slack.com/future/datastores) can securely store and
+retrieve data for your application. Required scopes to use datastores include
+`datastore:write` and `datastore:read`.
 
 ## Resources
 
