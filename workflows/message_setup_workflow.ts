@@ -56,9 +56,9 @@ export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
 );
 
 /**
- * This next step uses the SendEphemeralMessage built-in function. 
+ * This next step uses the SendEphemeralMessage built-in function.
  * An ephemeral confirmation message will be sent to the user
- * creating the welcome message, after the user submits the above 
+ * creating the welcome message, after the user submits the above
  * form.
  */
 MessageSetupWorkflow.addStep(Schema.slack.functions.SendEphemeralMessage, {

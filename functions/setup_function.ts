@@ -5,7 +5,7 @@ import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
 /**
  * This custom function will take the initial form input, store it
- * in the datastore and create an event trigger to listen for 
+ * in the datastore and create an event trigger to listen for
  * user_joined_channel events in the specified channel.
  */
 export const WelcomeMessageSetupFunction = DefineFunction({
