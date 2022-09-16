@@ -1,6 +1,6 @@
 import type { SlackFunctionHandler } from "deno-slack-sdk/types.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
-import { DATASTORE_NAME } from "../datastores/welcome_message_db.ts";
+import { DATASTORE_NAME } from "../datastores/messages.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
 /**
@@ -12,7 +12,7 @@ export const SendWelcomeMessageFunction = DefineFunction({
   callback_id: "send_welcome_message_function",
   title: "Sending the Welcome Message",
   description: "Pull the welcome messages and sends it to the new user",
-  source_file: "functions/send.ts",
+  source_file: "functions/send_welcome_message.ts",
   input_parameters: {
     properties: {
       channel: {

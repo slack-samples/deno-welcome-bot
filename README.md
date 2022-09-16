@@ -101,7 +101,7 @@ To create a Link Trigger for the "Message Setup" Workflow, run the following
 command:
 
 ```zsh
-$ slack trigger create --trigger-def triggers/welcome_message_trigger.ts
+$ slack trigger create --trigger-def triggers/create_welcome_message_shortcut.ts
 ```
 
 After selecting a Workspace, the output provided will include the Link Trigger
@@ -193,6 +193,12 @@ to the next step.
 [Triggers](https://api.slack.com/future/triggers) determine when Workflows are
 executed. A trigger file describes a scenario in which a workflow should be run,
 such as a user pressing a button or when a specific event occurs.
+
+### `/datastores`
+
+[Datastores](https://api.slack.com/future/datastores) can securely store and
+retrieve data for your application. Required scopes to use datastores include
+`datastore:write` and `datastore:read`.
 
 ## Resources
 

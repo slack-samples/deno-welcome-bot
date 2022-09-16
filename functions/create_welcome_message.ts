@@ -1,6 +1,6 @@
 import type { SlackFunctionHandler } from "deno-slack-sdk/types.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
-import { DATASTORE_NAME } from "../datastores/welcome_message_db.ts";
+import { DATASTORE_NAME } from "../datastores/messages.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
 /**
@@ -12,7 +12,7 @@ export const WelcomeMessageSetupFunction = DefineFunction({
   callback_id: "welcome_message_setup_function",
   title: "Welcome Message Setup",
   description: "Takes a welcome message and stores it in the datastore",
-  source_file: "functions/setup.ts",
+  source_file: "functions/create_welcome_message.ts",
   input_parameters: {
     properties: {
       welcome_message: {
@@ -62,7 +62,7 @@ const setupFunction: SlackFunctionHandler<
       type: "event",
       name: "Member joined response",
       description: "Triggers when member joined",
-      workflow: "#/workflows/send_welcome_message_workflow",
+      workflow: "#/workflows/send_welcome_message",
       event: {
         event_type: "slack#/events/user_joined_channel",
         channel_ids: [inputs.channel],

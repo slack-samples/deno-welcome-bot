@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { WelcomeMessageSetupFunction } from "../functions/setup.ts";
+import { WelcomeMessageSetupFunction } from "../functions/create_welcome_message.ts";
 
 /**
  * The MessageSetupWorkflow opens a form where the user creates a
