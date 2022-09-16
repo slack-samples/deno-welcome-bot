@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { SendWelcomeMessageFunction } from "../functions/send.ts";
+import { SendWelcomeMessageFunction } from "../functions/send_welcome_message.ts";
 
 /**
  * The SendWelcomeMessageWorkFlow will retrieve the welcome message

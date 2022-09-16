@@ -1,6 +1,6 @@
 import { DefineDatastore, Schema } from "deno-slack-sdk/mod.ts";
 
-export const DATASTORE_NAME = "message_setup_db";
+export const DATASTORE_NAME = "messages";
 
 export const MessageSetupDatastore = DefineDatastore({
   name: DATASTORE_NAME,
