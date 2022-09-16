@@ -3,9 +3,11 @@ import { SlackAPI } from "deno-slack-api/mod.ts";
 import { DATASTORE_NAME } from "../datastores/welcome_message_db.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
-//FLOW #1 - WELCOME MESSAGE SETUP
-
-// This custom function definition will take the initial form input and store it into the datastore.
+/**
+ * This custom function will take the initial form input, store it
+ * in the datastore and create an event trigger to listen for
+ * user_joined_channel events in the specified channel.
+ */
 export const WelcomeMessageSetupFunction = DefineFunction({
   callback_id: "welcome_message_setup_function",
   title: "Welcome Message Setup",
@@ -40,7 +42,6 @@ const setupFunction: SlackFunctionHandler<
 
   const uuid = crypto.randomUUID();
 
-  //Creating a datastore record for the message
   const putResponse = await client.apps.datastore.put({
     datastore: DATASTORE_NAME,
     item: {
@@ -51,15 +52,12 @@ const setupFunction: SlackFunctionHandler<
     },
   });
 
-  //Error handling
   if (!putResponse.ok) {
     return await {
       error: putResponse.error,
       outputs: {},
     };
   } else {
-    // FLOW #2
-    // Creating event trigger for Workflow #2
     const triggerResponse = await client.workflows.triggers.create({
       type: "event",
       name: "Member joined response",

@@ -30,11 +30,12 @@ apps then you've come to the right place!
 
 ## Understanding Welcome Bot
 
-When working with this app it helps to think about it as two separate flows.
+When working with this app it helps to think about it as two separate series of
+steps.
 
 ### Creating and storing messages
 
-- A link trigger starts the `MessageSetupWorkflow`workflow.
+- A link trigger starts the `MessageSetupWorkflow` workflow.
 - The `MessageSetupWorkflow` workflow has three steps, steps are the action
   components of a workflow.
   1. The `OpenForm` built-in function that opens a form.
