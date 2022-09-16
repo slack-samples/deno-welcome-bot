@@ -30,7 +30,8 @@ apps then you've come to the right place!
 
 ## Understanding Welcome Bot
 
-When working with this app it helps to think about it as two separate series of steps.
+When working with this app it helps to think about it as two separate series of
+steps.
 
 ### Creating and storing messages
 
