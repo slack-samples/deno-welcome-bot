@@ -7,7 +7,7 @@ import { SendWelcomeMessageFunction } from "../functions/send_welcome_message.ts
  * a new user joins the channel.
  */
 export const SendWelcomeMessageWorkflow = DefineWorkflow({
-  callback_id: "send_welcome_message_workflow",
+  callback_id: "send_welcome_message",
   title: "Send Welcome Message",
   description:
     "Posts an ephemeral welcome message when a new user joins a channel.",
