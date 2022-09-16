@@ -1,8 +1,11 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
 import { WelcomeMessageSetupFunction } from "../functions/setup.ts";
 
-// Workflow #1: Defining the setup Workflow that opens a form where the user creates a welcome message. Use the callback id of this workflow in the link trigger definition.
-
+/**
+ * The MessageSetupWorkflow opens a form where the user creates a
+ * welcome message. The trigger for this workflow is found in
+ * `/triggers/welcome_message_trigger.ts`
+ */
 export const MessageSetupWorkflow = DefineWorkflow({
   callback_id: "message_setup_workflow",
   title: "Create Welcome Message",
@@ -20,7 +23,11 @@ export const MessageSetupWorkflow = DefineWorkflow({
   },
 });
 
-// Step #1: Adding the OpenForm built-in function as a step to the setup Workflow #1. This form takes in a message input and a channel id input.
+/**
+ * This step uses the OpenForm built-in function. The form has two
+ * inputs -- a welcome message and a channel id for that message to
+ * be posted in.
+ */
 export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
@@ -48,7 +55,12 @@ export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
   },
 );
 
-// Step #2: Adding the SendEphemeralMessage built-in function as a step to Workflow #1. Message will send after the end user submits their form.
+/**
+ * This next step uses the SendEphemeralMessage built-in function. 
+ * An ephemeral confirmation message will be sent to the user
+ * creating the welcome message, after the user submits the above 
+ * form.
+ */
 MessageSetupWorkflow.addStep(Schema.slack.functions.SendEphemeralMessage, {
   channel_id: SetupWorkflowForm.outputs.fields.channel,
   user_id: MessageSetupWorkflow.inputs.interactivity.interactor.id,
@@ -56,7 +68,11 @@ MessageSetupWorkflow.addStep(Schema.slack.functions.SendEphemeralMessage, {
     `Your welcome message for this channel was successfully created! :white_check_mark:`,
 });
 
-// Step #3: Adding the custom function as a step to Workflow #1. This will take the form output and send it to the custom function
+/**
+ * This step takes the form output and passes it along to a custom
+ * function which sets the welcome message up.
+ * See `/functions/setup_function.ts` for more information.
+ */
 MessageSetupWorkflow.addStep(WelcomeMessageSetupFunction, {
   welcome_message: SetupWorkflowForm.outputs.fields.messageInput,
   channel: SetupWorkflowForm.outputs.fields.channel,
