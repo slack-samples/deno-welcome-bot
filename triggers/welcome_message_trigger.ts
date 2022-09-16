@@ -1,6 +1,8 @@
 import { Trigger } from "deno-slack-api/types.ts";
 
-// Link trigger that will prompt the setup workflow
+/**
+ * This link trigger prompts the MessageSetupWorkflow workflow.
+ */
 const welcomeMessageTrigger: Trigger = {
   type: "shortcut",
   name: "Setup a Welcome Message",

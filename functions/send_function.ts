@@ -3,7 +3,11 @@ import { SlackAPI } from "deno-slack-api/mod.ts";
 import { DATASTORE_NAME } from "../datastores/welcome_message_db.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
-//This custom function will pull the stored message and send it to the joining user as an ephemeral message.
+/**
+ * This custom function will pull the stored message from the datastore 
+ * and send it to the joining user as an ephemeral message in the
+ * specified channel.
+ */
 export const SendWelcomeMessageFunction = DefineFunction({
   callback_id: "send_welcome_message_function",
   title: "Sending the Welcome Message",
