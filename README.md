@@ -33,6 +33,8 @@ apps then you've come to the right place!
 When working with this app it helps to think about it as two separate series of
 steps.
 
+<img src="assets/deno-welcome-bot-flow.png" alt="Welcome bot flow diagram" width="500">
+
 ### Creating and storing messages
 
 - A link trigger starts the `MessageSetupWorkflow` workflow.
