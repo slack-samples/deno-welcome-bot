@@ -7,7 +7,7 @@ export default Manifest({
   name: "Welcome Message Bot",
   description:
     "Quick and easy way to setup automated welcome messages for channels in your workspace.",
-  icon: "assets/icon.png",
+  icon: "assets/default_new_app_icon.png",
   workflows: [MessageSetupWorkflow, SendWelcomeMessageWorkflow],
   outgoingDomains: [],
   datastores: [MessageSetupDatastore],
