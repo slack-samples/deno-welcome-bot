@@ -1,5 +1,4 @@
-import type { SlackFunctionHandler } from "deno-slack-sdk/types.ts";
-import { SlackAPI } from "deno-slack-api/mod.ts";
+import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import { DATASTORE_NAME } from "../datastores/messages.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
@@ -33,55 +32,50 @@ export const WelcomeMessageSetupFunction = DefineFunction({
   },
 });
 
-const setupFunction: SlackFunctionHandler<
-  typeof WelcomeMessageSetupFunction.definition
-> = async (
-  { inputs, token },
-) => {
-  const client = SlackAPI(token, {});
+export default SlackFunction(
+  WelcomeMessageSetupFunction,
+  async ({ inputs, client }) => {
+    const uuid = crypto.randomUUID();
 
-  const uuid = crypto.randomUUID();
-
-  const putResponse = await client.apps.datastore.put({
-    datastore: DATASTORE_NAME,
-    item: {
-      id: uuid,
-      channel: inputs.channel,
-      message: inputs.welcome_message,
-      author: inputs.author,
-    },
-  });
-
-  if (!putResponse.ok) {
-    return await {
-      error: putResponse.error,
-      outputs: {},
-    };
-  } else {
-    const triggerResponse = await client.workflows.triggers.create({
-      type: "event",
-      name: "Member joined response",
-      description: "Triggers when member joined",
-      workflow: "#/workflows/send_welcome_message",
-      event: {
-        event_type: "slack#/events/user_joined_channel",
-        channel_ids: [inputs.channel],
-      },
-      inputs: {
-        channel: {
-          value: "{{data.channel_id}}",
-        },
-        triggered_user: {
-          value: "{{data.user_id}}",
-        },
+    const putResponse = await client.apps.datastore.put({
+      datastore: DATASTORE_NAME,
+      item: {
+        id: uuid,
+        channel: inputs.channel,
+        message: inputs.welcome_message,
+        author: inputs.author,
       },
     });
 
-    console.log(triggerResponse);
-    return await {
-      outputs: {},
-    };
-  }
-};
+    if (!putResponse.ok) {
+      return await {
+        error: putResponse.error,
+        outputs: {},
+      };
+    } else {
+      const triggerResponse = await client.workflows.triggers.create({
+        type: "event",
+        name: "Member joined response",
+        description: "Triggers when member joined",
+        workflow: "#/workflows/send_welcome_message",
+        event: {
+          event_type: "slack#/events/user_joined_channel",
+          channel_ids: [inputs.channel],
+        },
+        inputs: {
+          channel: {
+            value: "{{data.channel_id}}",
+          },
+          triggered_user: {
+            value: "{{data.user_id}}",
+          },
+        },
+      });
 
-export default setupFunction;
+      console.log(triggerResponse);
+      return await {
+        outputs: {},
+      };
+    }
+  },
+);
