@@ -48,32 +48,12 @@ export default SlackFunction(
     });
 
     if (!putResponse.ok) {
-      return await {
+      return {
         error: putResponse.error,
         outputs: {},
       };
     } else {
-      const triggerResponse = await client.workflows.triggers.create({
-        type: "event",
-        name: "Member joined response",
-        description: "Triggers when member joined",
-        workflow: "#/workflows/send_welcome_message",
-        event: {
-          event_type: "slack#/events/user_joined_channel",
-          channel_ids: [inputs.channel],
-        },
-        inputs: {
-          channel: {
-            value: "{{data.channel_id}}",
-          },
-          triggered_user: {
-            value: "{{data.user_id}}",
-          },
-        },
-      });
-
-      console.log(triggerResponse);
-      return await {
+      return {
         outputs: {},
       };
     }
