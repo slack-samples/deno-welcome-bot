@@ -1,5 +1,4 @@
-import type { SlackFunctionHandler } from "deno-slack-sdk/types.ts";
-import { SlackAPI } from "deno-slack-api/mod.ts";
+import { SlackFunction } from "deno-slack-sdk/mod.ts";
 import { DATASTORE_NAME } from "../datastores/messages.ts";
 import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
 
@@ -28,12 +27,9 @@ export const SendWelcomeMessageFunction = DefineFunction({
   },
 });
 
-const setupFunction: SlackFunctionHandler<
-  typeof SendWelcomeMessageFunction.definition
-> = async (
-  { inputs, token },
+export default SlackFunction(SendWelcomeMessageFunction, async (
+  { inputs, client },
 ) => {
-  const client = SlackAPI(token, {});
   // Querying datastore for stored messages
   const result = await client.apps.datastore.query({
     datastore: DATASTORE_NAME,
@@ -50,9 +46,7 @@ const setupFunction: SlackFunctionHandler<
     });
   }
 
-  return await {
+  return {
     outputs: {},
   };
-};
-
-export default setupFunction;
+});
