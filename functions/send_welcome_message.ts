@@ -46,7 +46,7 @@ export default SlackFunction(SendWelcomeMessageFunction, async (
     });
   }
 
-  return await {
+  return {
     outputs: {},
   };
 });
