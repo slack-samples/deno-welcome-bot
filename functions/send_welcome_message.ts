@@ -1,6 +1,5 @@
-import { SlackFunction } from "deno-slack-sdk/mod.ts";
-import { DATASTORE_NAME } from "../datastores/messages.ts";
-import { DefineFunction, Schema } from "deno-slack-sdk/mod.ts";
+import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { WelcomeMessageDatastore } from "../datastores/messages.ts";
 
 /**
  * This custom function will pull the stored message from the datastore
@@ -31,19 +30,30 @@ export default SlackFunction(SendWelcomeMessageFunction, async (
   { inputs, client },
 ) => {
   // Querying datastore for stored messages
-  const result = await client.apps.datastore.query({
-    datastore: DATASTORE_NAME,
+  const messages = await client.apps.datastore.query<
+    typeof WelcomeMessageDatastore.definition
+  >({
+    datastore: WelcomeMessageDatastore.name,
     expression: "#channel = :mychannel",
     expression_attributes: { "#channel": "channel" },
     expression_values: { ":mychannel": inputs.channel },
   });
 
-  for (const item of result["items"]) {
-    await client.chat.postEphemeral({
+  if (!messages.ok) {
+    return { error: `Failed to gather welcome messages: ${messages.error}` };
+  }
+
+  // Send the stored messages as ephemerally
+  for (const item of messages["items"]) {
+    const message = await client.chat.postEphemeral({
       channel: item["channel"],
       text: item["message"],
       user: inputs.triggered_user,
     });
+
+    if (!message.ok) {
+      return { error: `Failed to send welcome message: ${message.error}` };
+    }
   }
 
   return {

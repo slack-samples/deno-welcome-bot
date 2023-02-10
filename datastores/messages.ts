@@ -1,9 +1,12 @@
 import { DefineDatastore, Schema } from "deno-slack-sdk/mod.ts";
 
-export const DATASTORE_NAME = "messages";
-
-export const MessageSetupDatastore = DefineDatastore({
-  name: DATASTORE_NAME,
+/**
+ * Datastores are a Slack-hosted location to store
+ * and retrieve data for your app.
+ * https://api.slack.com/future/datastores
+ */
+export const WelcomeMessageDatastore = DefineDatastore({
+  name: "messages",
   primary_key: "id",
   attributes: {
     id: {
