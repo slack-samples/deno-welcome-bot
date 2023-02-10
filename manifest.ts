@@ -1,5 +1,5 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import { MessageSetupDatastore } from "./datastores/messages.ts";
+import { WelcomeMessageDatastore } from "./datastores/messages.ts";
 import { MessageSetupWorkflow } from "./workflows/create_welcome_message.ts";
 import { SendWelcomeMessageWorkflow } from "./workflows/send_welcome_message.ts";
 
@@ -10,7 +10,7 @@ export default Manifest({
   icon: "assets/default_new_app_icon.png",
   workflows: [MessageSetupWorkflow, SendWelcomeMessageWorkflow],
   outgoingDomains: [],
-  datastores: [MessageSetupDatastore],
+  datastores: [WelcomeMessageDatastore],
   botScopes: [
     "chat:write",
     "chat:write.public",
@@ -18,5 +18,6 @@ export default Manifest({
     "datastore:write",
     "channels:read",
     "triggers:write",
+    "triggers:read",
   ],
 });

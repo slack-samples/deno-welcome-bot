@@ -28,7 +28,7 @@ export const MessageSetupWorkflow = DefineWorkflow({
  * inputs -- a welcome message and a channel id for that message to
  * be posted in.
  */
-export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
+const SetupWorkflowForm = MessageSetupWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
     title: "Welcome Message Form",
@@ -56,7 +56,18 @@ export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
 );
 
 /**
- * This next step uses the SendEphemeralMessage built-in function.
+ * This step takes the form output and passes it along to a custom
+ * function which sets the welcome message up.
+ * See `/functions/setup_function.ts` for more information.
+ */
+MessageSetupWorkflow.addStep(WelcomeMessageSetupFunction, {
+  message: SetupWorkflowForm.outputs.fields.messageInput,
+  channel: SetupWorkflowForm.outputs.fields.channel,
+  author: MessageSetupWorkflow.inputs.interactivity.interactor.id,
+});
+
+/**
+ * This step uses the SendEphemeralMessage built-in function.
  * An ephemeral confirmation message will be sent to the user
  * creating the welcome message, after the user submits the above
  * form.
@@ -66,17 +77,6 @@ MessageSetupWorkflow.addStep(Schema.slack.functions.SendEphemeralMessage, {
   user_id: MessageSetupWorkflow.inputs.interactivity.interactor.id,
   message:
     `Your welcome message for this channel was successfully created! :white_check_mark:`,
-});
-
-/**
- * This step takes the form output and passes it along to a custom
- * function which sets the welcome message up.
- * See `/functions/setup_function.ts` for more information.
- */
-MessageSetupWorkflow.addStep(WelcomeMessageSetupFunction, {
-  welcome_message: SetupWorkflowForm.outputs.fields.messageInput,
-  channel: SetupWorkflowForm.outputs.fields.channel,
-  author: MessageSetupWorkflow.inputs.interactivity.interactor.id,
 });
 
 export default MessageSetupWorkflow;
