@@ -43,7 +43,7 @@ export default SlackFunction(SendWelcomeMessageFunction, async (
     return { error: `Failed to gather welcome messages: ${messages.error}` };
   }
 
-  // Send the stored messages as ephemerally
+  // Send the stored messages ephemerally
   for (const item of messages["items"]) {
     const message = await client.chat.postEphemeral({
       channel: item["channel"],
