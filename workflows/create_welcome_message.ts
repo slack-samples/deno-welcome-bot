@@ -28,7 +28,7 @@ export const MessageSetupWorkflow = DefineWorkflow({
  * inputs -- a welcome message and a channel id for that message to
  * be posted in.
  */
-export const SetupWorkflowForm = MessageSetupWorkflow.addStep(
+const SetupWorkflowForm = MessageSetupWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
     title: "Welcome Message Form",
