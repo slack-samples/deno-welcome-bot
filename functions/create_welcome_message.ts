@@ -1,5 +1,5 @@
-import { SlackAPIClient } from "deno-slack-api/types.ts";
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
+import { SlackAPIClient } from "deno-slack-sdk/types.ts";
 
 import { SendWelcomeMessageWorkflow } from "../workflows/send_welcome_message.ts";
 import { WelcomeMessageDatastore } from "../datastores/messages.ts";
