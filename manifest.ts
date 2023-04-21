@@ -1,16 +1,16 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import { MessageSetupDatastore } from "./datastores/welcome_message_db.ts";
-import { MessageSetupWorkflow } from "./workflows/message_setup_workflow.ts";
-import { SendWelcomeMessageWorkflow } from "./workflows/send_welcome_message_workflow.ts";
+import { WelcomeMessageDatastore } from "./datastores/messages.ts";
+import { MessageSetupWorkflow } from "./workflows/create_welcome_message.ts";
+import { SendWelcomeMessageWorkflow } from "./workflows/send_welcome_message.ts";
 
 export default Manifest({
   name: "Welcome Message Bot",
   description:
     "Quick and easy way to setup automated welcome messages for channels in your workspace.",
-  icon: "assets/icon.png",
+  icon: "assets/default_new_app_icon.png",
   workflows: [MessageSetupWorkflow, SendWelcomeMessageWorkflow],
   outgoingDomains: [],
-  datastores: [MessageSetupDatastore],
+  datastores: [WelcomeMessageDatastore],
   botScopes: [
     "chat:write",
     "chat:write.public",
@@ -18,5 +18,6 @@ export default Manifest({
     "datastore:write",
     "channels:read",
     "triggers:write",
+    "triggers:read",
   ],
 });
