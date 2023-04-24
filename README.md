@@ -27,10 +27,6 @@ users join a channel.
 - **Send Welcome Message**: Retrieve a stored message and send it when a new
   user joins the channel
 
-**⚠️ Note: In order for this automation to send welcome messages, please make
-sure to invite your app to the channel(s) where you are configuring the messages
-once it has been [installed to your workspace](#running-your-project-locally).**
-
 ## Understanding Welcome Bot
 
 When working with this app it helps to think about it as two separate series of
