@@ -24,7 +24,7 @@ export const MessageSetupWorkflow = DefineWorkflow({
 });
 
 /**
- * This step uses the OpenForm built-in function. The form has two
+ * This step uses the OpenForm Slack function. The form has two
  * inputs -- a welcome message and a channel id for that message to
  * be posted in.
  */
@@ -67,7 +67,7 @@ MessageSetupWorkflow.addStep(WelcomeMessageSetupFunction, {
 });
 
 /**
- * This step uses the SendEphemeralMessage built-in function.
+ * This step uses the SendEphemeralMessage Slack function.
  * An ephemeral confirmation message will be sent to the user
  * creating the welcome message, after the user submits the above
  * form.

@@ -27,6 +27,10 @@ users join a channel.
 - **Send Welcome Message**: Retrieve a stored message and send it when a new
   user joins the channel
 
+**⚠️ Note: In order for this automation to send welcome messages, please make
+sure to invite your app to the channel(s) where you are configuring the messages
+once it has been [installed to your workspace](#running-your-project-locally).**
+
 ## Understanding Welcome Bot
 
 When working with this app it helps to think about it as two separate series of
@@ -39,8 +43,8 @@ steps.
 - A link trigger starts the `MessageSetupWorkflow` workflow.
 - The `MessageSetupWorkflow` workflow has three steps, steps are the action
   components of a workflow.
-  1. The `OpenForm` built-in function that opens a form.
-  2. The `SendEphemeralMessage` built-in function that sends a confirmation
+  1. The `OpenForm` Slack function that opens a form.
+  2. The `SendEphemeralMessage` Slack function that sends a confirmation
      message.
   3. Passes data to the `WelcomeMessageSetupFunction` custom function.
 - When the form is submitted, the `WelcomeMessageSetupFunction` function saves
@@ -55,6 +59,10 @@ steps.
   1. Pass data to the `SendWelcomeMessageFunction` custom function.
 - The `SendWelcomeMessageFunction` function retrieves the saved message and
   sends it to the selected channel.
+
+**⚠️ Note: In order for this automation to send welcome messages, please make
+sure to invite your app to the channel(s) where you are configuring the messages
+once it has been [installed to your workspace](#running-your-project-locally).**
 
 ## Setup
 
