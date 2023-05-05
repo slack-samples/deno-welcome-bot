@@ -1,5 +1,6 @@
 import { Trigger } from "deno-slack-api/types.ts";
 import MessageSetupWorkflow from "../workflows/create_welcome_message.ts";
+import { TriggerContextData } from "deno-slack-api/mod.ts";
 
 /**
  * This link trigger prompts the MessageSetupWorkflow workflow.
@@ -11,10 +12,10 @@ const welcomeMessageTrigger: Trigger<typeof MessageSetupWorkflow.definition> = {
   workflow: `#/workflows/${MessageSetupWorkflow.definition.callback_id}`,
   inputs: {
     interactivity: {
-      value: "{{data.interactivity}}",
+      value: TriggerContextData.Shortcut.interactivity,
     },
     channel: {
-      value: "{{data.channel_id}}",
+      value: TriggerContextData.Shortcut.channel_id,
     },
   },
 };
