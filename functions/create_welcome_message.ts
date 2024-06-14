@@ -3,6 +3,7 @@ import { SlackAPIClient } from "deno-slack-sdk/types.ts";
 
 import { SendWelcomeMessageWorkflow } from "../workflows/send_welcome_message.ts";
 import { WelcomeMessageDatastore } from "../datastores/messages.ts";
+import { newSendWelcomeMessageTrigger } from "../triggers/send_welcome_message_event.ts";
 
 /**
  * This custom function will take the initial form input, store it
@@ -60,7 +61,12 @@ export default SlackFunction(
 
     // Create a new user_joined_channel trigger if none exist
     if (!triggers.exists) {
-      const newTrigger = await saveUserJoinedChannelTrigger(client, channel);
+      const sendWelcomeMessageTrigger = newSendWelcomeMessageTrigger(channel);
+
+      const newTrigger = await client.workflows.triggers.create<
+        typeof SendWelcomeMessageWorkflow.definition
+      >(sendWelcomeMessageTrigger);
+
       if (!newTrigger.ok) {
         return {
           error: `Failed to create welcome trigger: ${newTrigger.error}`,
@@ -98,36 +104,4 @@ export async function findUserJoinedChannelTrigger(
   // Return if any matching triggers were found
   const exists = joinedTriggers.length > 0;
   return { exists };
-}
-
-/**
- * saveUserJoinedChannelTrigger creates a new user_joined_channel trigger
- * for the "Send Welcome Message" workflow in a channel.
- */
-export async function saveUserJoinedChannelTrigger(
-  client: SlackAPIClient,
-  channel: string,
-): Promise<{ ok: boolean; error?: string }> {
-  const triggerResponse = await client.workflows.triggers.create<
-    typeof SendWelcomeMessageWorkflow.definition
-  >({
-    type: "event",
-    name: "User joined channel",
-    description: "Send a message when a user joins the channel",
-    workflow:
-      `#/workflows/${SendWelcomeMessageWorkflow.definition.callback_id}`,
-    event: {
-      event_type: "slack#/events/user_joined_channel",
-      channel_ids: [channel],
-    },
-    inputs: {
-      channel: { value: channel },
-      triggered_user: { value: "{{data.user_id}}" },
-    },
-  });
-
-  if (!triggerResponse.ok) {
-    return { ok: false, error: triggerResponse.error };
-  }
-  return { ok: true };
 }
