@@ -1,3 +1,7 @@
+### ⚠️ This sample has been archived and is no longer maintained.
+
+---
+
 # Welcome Bot
 
 This sample automation creates, stores, and sends friendly welcome messages when
